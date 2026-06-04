@@ -1,0 +1,57 @@
+#Classe Vetor que aceita qualquer número de componentes: Vetor(1, 2) ou Vetor(1, 2, 3, 4) — use *componentes no __init__ (sobrecarga de método, parte 1!). Implemente __add__ e __sub__ somando componente a componente; se os vetores têm dimensões diferentes, devolva None e avise. Implemente __eq__ e __str__ no formato (1, 2, 3). Foco: *args + operadores na mesma classe.
+class Vetor:
+    def __init__(self, *componentes):
+        self.componentes = list(componentes)
+
+    def __add__(self, outro):
+        if len(self.componentes) != len(outro.componentes):
+            print("Erro: os vetores possuem dimensões diferentes.")
+            return None
+
+        resultado = []
+
+        for i in range(len(self.componentes)):
+            resultado.append(
+                self.componentes[i] + outro.componentes[i]
+            )
+        return Vetor(*resultado)
+    
+    def __sub__(self, outro):
+        if len(self.componentes) != len(outro.componentes):
+            print("Erro: os vetores possuem dimensões diferentes.")
+            return None
+        resultado = []
+        for i in range(len(self.componentes)):
+            resultado.append(
+                self.componentes[i] - outro.componentes[i]
+            )
+        return Vetor(*resultado)
+
+    def __eq__(self, outro):
+        return self.componentes == outro.componentes
+
+    def __str__(self):
+        return "(" + ", ".join(str(c) for c in self.componentes) + ")"
+
+
+v1 = Vetor(1, 2)
+v2 = Vetor(3, 4)
+
+print("v1 =", v1)
+print("v2 =", v2)
+
+print("\nSoma:")
+print(v1 + v2)
+
+print("\nSubtração:")
+print(v1 - v2)
+
+v3 = Vetor(1, 2)
+
+print("\nComparação:")
+print(v1 == v3)
+
+v4 = Vetor(1, 2, 3)
+
+print("\nTentando somar dimensões diferentes:")
+print(v1 + v4)
